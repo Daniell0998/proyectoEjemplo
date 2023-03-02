@@ -17,7 +17,7 @@ public class menuPredeterminado {
 		
 		  ArrayList<Usuario> usuarios = new ArrayList<>();
 
-	        usuarios.add(new Usuario("Juan", "Pérez", LocalDate.of(1990, 5, 15), "Sevilla", "Espanol",
+	       /* usuarios.add(new Usuario("Juan", "Pérez", LocalDate.of(1990, 5, 15), "Sevilla", "Espanol",
 	                "contraseña1", "Atento y carinioso", "Hetero", new ArrayList<String>() {{
 	                    add("Futbol");
 	                    add("Cine Clasico");
@@ -56,20 +56,26 @@ public class menuPredeterminado {
 	                "contraseña8", "Descripción 8", "Homo", new ArrayList<String>() {{
 	                    add("Hardware");
 	                    add("Pop");
-	                }}));
-	        usuarios.add(new Usuario("Jorge", "Gonzalez", LocalDate.of(1991, 12, 17), "Sevilla", "Espanol",
+	                }}));*/
+	        usuarios.add(new Usuario("Jorge", "Gonzalez", LocalDate.of(1980, 12, 15), "Sevilla", "Espanol",
 	                "contraseña9", "Perfeccionista, atento", "Bi", new ArrayList<String>() {{
-	                    add("Realfooder");
-	                    add("Baloncesto");
-	                }}));
-	        usuarios.add(new Usuario("Tomas", "Demileche", LocalDate.of(1991, 12, 17), "Jaen", "Espanol",
-	                "contraseña10", "Puntual, responsable", "Hetero", new ArrayList<String>() {{
-	                    add("Gatos");
+	                    add("Futbol");
 	                    add("Italiano");
 	                }}));
+	        usuarios.add(new Usuario("Tomas", "Demileche", LocalDate.of(1988, 12, 15), "Jaen", "Ingles",
+	                "contraseña10", "Puntual, responsable", "Hetero", new ArrayList<String>() {{
+	                    add("Fulbol");
+	                    add("Italiano");
+	                }}));
+	   
+	        
+	        List <Usuario> filtrar=Usuario.personasConMasDatosEnComun(usuarios);
+	        
+	        mostrarInteresesComunes(filtrar);
 	      
-		
-	compararIntereses(usuarios);
+	        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+	        
+	      
 	  
 		
 		List<Usuario> filtro = new ArrayList<>();
@@ -78,7 +84,7 @@ public class menuPredeterminado {
 		
 		
 
-	System.out.println(usuarios);
+	
 	
 	
 	
@@ -126,7 +132,7 @@ public class menuPredeterminado {
 	System.out.println(usuarioNuevo.calcularCompatiblidad(usuarioPrueba));
 		
 	}
-	public static void compararIntereses(ArrayList<Usuario> usuarios) {
+	/*public static void compararIntereses(ArrayList<Usuario> usuarios) {
 	    ArrayList<Usuario> usuariosConInteresesEnComun = new ArrayList<>();
 	    for (int i = 0; i < usuarios.size(); i++) {
 	        Usuario usuario1 = usuarios.get(i);
@@ -150,7 +156,7 @@ public class menuPredeterminado {
 	    for (Usuario usuario : usuariosConInteresesEnComun) {
 	        System.out.println(usuario.getNombre());
 	    }
-	}
+	}*/
 	
 
 
@@ -158,7 +164,13 @@ public class menuPredeterminado {
 
 
 
-	
+	/**
+	 * @author DANI_
+	 * Metodo por el cual mostramos al usuario un filtro de edad, donde se le preguta al usuario
+	 * un minimo un maximo de años y luego se guarda  el resultado en un ArrayList y despues se llama
+	 * a otro metodo por el cual se muestra por pantalla.
+	 * @param usuarios
+	 */
 	public static void preguntaFiltroEdad(List<Usuario> usuarios) {
 		
 		int minimo,maximo;
@@ -173,6 +185,13 @@ public class menuPredeterminado {
 		
 	
 	}
+	/**
+	 * @author DANI_
+	 * Metodo por el cual mostramos al usuario un filtro de Ciudad, donde se le preguta al usuario
+	 * la ciudad que desea filtrar y luego se guarda  el resultado en un ArrayList y despues se llama
+	 * a otro metodo por el cual se muestra por pantalla.
+	 * @param usuarios
+	 */
 
 	public  static void preguntaFiltrosCiudad( List<Usuario> usuarios) {
 		Scanner sc= new Scanner(System.in);
@@ -220,6 +239,18 @@ public class menuPredeterminado {
 										""";
 			System.out.println(bloqueTexto);
 			break;
+		
+		case 3:
+			bloqueTexto = """
+					�Como Filtro quieres usar?
+					1. -Por Edad
+					2. -Por Idioma
+					3. -Por ciudad
+				
+										""";
+			System.out.println(bloqueTexto);
+			break;
+
 
 		default:
 			break;
@@ -400,7 +431,12 @@ public class menuPredeterminado {
 
 		return interesesUsuario;
 	}
-	
+	/**
+	 * @author DANI_
+	 * Metodo por el cual se muestra al usuario por pantalla el resultado de filtrar una ciudad.
+	 * @param personasPorCiudad
+	 * @return
+	 */
 	public static List<Usuario> mostrarFiltroCiudad( List<Usuario>personasPorCiudad ){
 		   for (Usuario u : personasPorCiudad) {
 	            System.out.println(u.getNombre());
@@ -408,11 +444,35 @@ public class menuPredeterminado {
 		return personasPorCiudad;
 	   
 }
+	/**
+	 * @author DANI_
+	 * Metodo por el cual se muestra al usuario por pantalla el resultado de filtrar por edad.
+	 * @param personasPorCiudad
+	 * @return
+	 */
 	public static List <Usuario> mostrarFiltroEdad(List<Usuario> personasEnRangoDeEdad) {
 		  for (Usuario persona : personasEnRangoDeEdad) {
 	            System.out.println(persona.getNombre());
 	        }
 		return personasEnRangoDeEdad;
+		
+	}
+	public static List <Usuario>mostrarInteresesComunes( List <Usuario> interesesComunes) {
+	  	 
+				for (Usuario persona : interesesComunes) {
+	            System.out.println(persona.toString());
+	        }
+	  	 
+		
+		return interesesComunes;
+
+
+	}
+	public static List <Usuario> mostrarFiltroIdioma(List<Usuario> personasIdioma) {
+		  for (Usuario persona :  personasIdioma) {
+	            System.out.println(persona.getNombre());
+	        }
+		return personasIdioma;
 		
 	}
 }

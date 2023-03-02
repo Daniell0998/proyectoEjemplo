@@ -1,3 +1,4 @@
+
 package proyectoModelos;
 
 import java.time.LocalDate;
@@ -29,7 +30,7 @@ public class Usuario {
 		apellido = "ProbarApellido";
 		fechaNacimiento = LocalDate.of(1993, 03, 14);
 		ciudad = "Sevilla";
-		idioma = "Espa�ol";
+		idioma = "Espanol";
 		edad=29;
 		contrasenia = "123Ma!";
 		descripcion = "en una palabra: betico";
@@ -116,6 +117,8 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+				
+		
 	}
 
 	public void setApellido(String apellido) {
@@ -220,11 +223,63 @@ public class Usuario {
         }
         return filtradas;
     }
-    public static List<Usuario> filtrarPorEdad(List<Usuario> listausuarios, int edadMinima, int edadMaxima) {
-        return listausuarios.stream()
+    public static List<Usuario> filtrarPorEdad(List<Usuario> edad, int edadMinima, int edadMaxima) {
+        return edad.stream()
                 .filter(ciudades -> ciudades.getEdad() >= edadMinima && ciudades.getEdad() <= edadMaxima)
                 .collect(Collectors.toList());
     }
 
-
+    public static List<Usuario> filtrarPorIdioma(List<Usuario> idioma,String lengua){
+    	
+    	List<Usuario> filtrado=new ArrayList<>();
+    	
+    	for (Usuario c: idioma) {
+    		if (c.getIdioma().equalsIgnoreCase(lengua)){
+    			filtrado.add(c);
+    			
+    		}
+    	}
+    	
+		return filtrado;
+    	
+    }
+ 
+    public int compara(Usuario p) {
+        int datosEnComun = 0;
+        
+        if (this.edad == p.edad) {
+            datosEnComun++;
+        }
+        if (this.ciudad.equalsIgnoreCase(p.ciudad)) {
+        	datosEnComun++;
+        }
+        if (this.preferencias.equalsIgnoreCase(p.preferencias)) {
+        	datosEnComun++;
+        }
+   
+    
+        return datosEnComun;
+    }
+    
+    public static List<Usuario> personasConMasDatosEnComun(List<Usuario> usuario) {
+        List<Usuario> resultado = new ArrayList<>();
+        int maxDatosEnComun = 0;
+        for (int i = 0; i < usuario.size(); i++) {
+            for (int j = i+1; j < usuario.size(); j++) {
+                int datosEnComun = usuario.get(i).compara(usuario.get(j));
+                if (datosEnComun > maxDatosEnComun) {
+                    resultado.clear();
+                    resultado.add(usuario.get(i));
+                    resultado.add(usuario.get(j));
+                    maxDatosEnComun = datosEnComun;
+                } else if (datosEnComun == maxDatosEnComun) {
+                    resultado.add(usuario.get(i));
+                    resultado.add(usuario.get(j));
+                }
+            }
+        }
+     
+  
+        return resultado;
+    }
 }
